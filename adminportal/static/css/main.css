@@ -1,0 +1,20 @@
+html, body {
+	font-family: sans-serif;
+	font-size: 12px;
+	/*background: url("../themes/black/images/bg.png");
+	background-repeat: repeat;*/
+    background-color: #fcfcfcfa;
+    overflow: hidden;
+    padding: 0px;
+    margin: 0px;
+}
+
+.auth_login_panel_logo {
+    margin: 15px 10px 10px 10px;
+    max-width: 150px;
+    max-height: 150px;
+}
+
+.auth_login_panel_panel {
+    width: 200px;
+}
