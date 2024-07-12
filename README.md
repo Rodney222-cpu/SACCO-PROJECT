@@ -15,8 +15,8 @@ mysql {db_name} < schema.sql -u {db_user} -p
 
 Configuration File
 ======================================================
-1. Create a file called settings.cfg and place somewhere you can access it.
-2. Set up an environment variable ADMINPORTAL_SETTINGS with value as path the above file. For example, run the following command
+1. Create a file called settings.cfg and place it somewhere you can access it.
+2. Set up an environment variable ADMINPORTAL_SETTINGS with value as path to the above file. For example, run the following command
 ```
 export ADMINPORTAL_SETTINGS=/path/to/settings.cfg 
 ```
