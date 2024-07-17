@@ -94,3 +94,18 @@
 .icon-large-chart{
 	background:url('icons/large_chart.png') no-repeat center center;
 }
+.icon-transactions{
+	background:url('icons/transactions.png') no-repeat center center;
+}
+.icon-list{
+	background:url('icons/list.png') no-repeat center center;
+}
+.icon-people{
+	background:url('icons/people.png') no-repeat center center;
+}
+.icon-control-center{
+	background:url('icons/control-center.png') no-repeat center center;
+}
+.icon-exit{
+	background:url('icons/exit.png') no-repeat center center;
+}

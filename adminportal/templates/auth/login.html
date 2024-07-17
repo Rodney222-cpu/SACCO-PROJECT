@@ -1,84 +1,88 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Login Page</title>
-        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/themes/material-blue/easyui.css')}}">
-        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/themes/icon.css')}}">
-        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/main.css')}}">
-        <script type="text/javascript" src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
-        <script type="text/javascript" src="{{url_for('static', filename='js/jquery.easyui.min.js')}}"></script>
-        <script type="text/javascript" src="{{url_for('static', filename='js/main.js')}}"></script>
-    </head>
-    <body>
+{% extends 'base_html.html' %}
+
+{% block body %}
+<body>
         
-        <div align="center" id="auth_login_panel" style="padding-top: 100px;">
-            
-            <div 
-                align="center"
-                id="auth_login_panel_panel"
-                class="easyui-panel .auth_login_panel_panel" 
-                data-options="width:500,height:400"
-                title="{{_('Admin Login Portal') }}" >
+    <div align="center" id="auth_login_panel" style="padding-top: 100px;">
+        
+        <div 
+            align="center"
+            id="auth_login_panel_panel"
+            class="easyui-panel .auth_login_panel_panel" 
+            data-options="width:500,height:400"
+            title="{{_('Admin Login Portal') }}" >
+            <div align="center">
+                <span>
+                    <img class="auth_login_panel_logo"
+                        src="{{ url_for('static', filename='images/yo_logo.png') }}" />
+                </span>
+            </div> 
+            <form method="post" 
+                id="auth_login_panel_form" 
+                action="{{ url_for("auth.authenticate") }}"
+                onSubmit="return handle_login();">
+                <table width="300" height="160" cellpadding="5" cellspacing="5">
+                    <tr>
+                        <td height="51">
+                            {{ _('Usrname') }}:<BR/>
+                            <input size="25" 
+                                class="easyui-textbox" 
+                                data-options="width:300"
+                                type="text" 
+                                name="username" 
+                                id="auth_login_panel_form_username" 
+                                data-options="iconCls:'icon-man',required:true">
+                            </input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="51">
+                            {{ _('Password') }}:<BR/>
+                            <input 
+                                size="25" 
+                                class="easyui-textbox" 
+                                data-options="width:300"
+                                type="password" 
+                                name="password" 
+                                id="auth_login_panel_form_password" 
+                                data-options="iconCls:'icon-lock',required:true">
+                            </input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a 
+                                class="easyui-linkbutton" 
+                                data-options="width:300"
+                                onclick="loginSubmitForm();"
+                                id="auth_login_panel_form_submit_button">
+                                {{ _('Login Now') }}
+                            </a>
+
+                            <span 
+                                id="auth_login_panel_form_status" 
+                                class="auth_login_panel_form_status">
+                            </span>
+                        </td>
+                    </tr>
+                </table>
                 <div align="center">
-                    <span>
-                        <img class="auth_login_panel_logo"
-                            src="{{ url_for('static', filename='images/yo_logo.png') }}" />
-                    </span>
-                </div> 
-                <form id="auth_login_panel_form" onSubmit="return handle_login();">
-                    <table width="300" height="160" cellpadding="5" cellspacing="5">
-                        <tr>
-                            <td height="51">
-                                {{ _('Usrname') }}:<BR/>
-                                <input size="25" 
-                                    class="easyui-textbox" 
-                                    data-options="width:300"
-                                    type="text" name="auth_login_username" 
-                                    id="auth_login_panel_form_username" 
-                                    data-options="iconCls:'icon-man',required:true">
-                                </input>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td height="51">
-                                {{ _('Password') }}:<BR/>
-                                <input 
-                                    size="25" 
-                                    class="easyui-textbox" 
-                                    data-options="width:300"
-                                    type="password" 
-                                    name="auth_login_panel_form_password" 
-                                    id="auth_login_panel_form_password" 
-                                    data-options="iconCls:'icon-lock',required:true">
-                                </input>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a 
-                                    class="easyui-linkbutton" 
-                                    data-options="width:300"
-                                    id="auth_login_panel_form_submit_button">
-                                    {{ _('Login Now') }}
-                                </a>
-
-                                <span 
-                                    id="auth_login_panel_form_status" 
-                                    class="auth_login_panel_form_status">
-                                </span>
-                            </td>
-                        </tr>
-                    </table>
-                    <div align="center">
-                        <span class="copyright">{{ _(messages.copyright) }}</span>
-                    </div>
-                </form> 
-            
-            </div>
-            <!-- End of Login Panel -->
-
+                    <span class="copyright">{{ _('%(copyright)s ', copyright=messages['copyright'] ) }}</span>
+                </div>
+            </form> 
+        
         </div>
+        <script>
+            {%  include 'auth/js/login.js' %}
+        </script>
+        <!-- End of Login Panel -->
 
-    </body>
-</html>
+    </div>
+</body>
+{% endblock %}
+
+
+
+{% block footer %}
+  
+{% endblock %}

@@ -1,0 +1,10 @@
+{
+    "copyright": "Copyright &copy; 2020",
+    "app_name": "Yo! SACCO - Admin Portal",
+    "log_out": "Log Out",
+    "error_user_not_exist": "User does not exist",
+    "user_authenticated": "User authentication was successful",
+    "pass_auth_failed": "Password authentication failed.",
+    "invalid_username": "Invalid %s",
+    "invalid_password": "Invalid password"
+}
