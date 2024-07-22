@@ -13,13 +13,13 @@ def create_app():
     babel = Babel(app)
 
     # Register blueprints here
-    from .auth import auth_bp
+    from .appmodules.auth.authRoots import auth_bp
     app.register_blueprint(auth_bp)
 
-    from .applayout import applayout_bp
+    from .appmodules.applayout.applayoutRootes import applayout_bp
     app.register_blueprint(applayout_bp)
 
-    from .acg import acg_bp
+    from .appmodules.acg.acgRoutes import acg_bp
     app.register_blueprint(acg_bp)
     
     return app

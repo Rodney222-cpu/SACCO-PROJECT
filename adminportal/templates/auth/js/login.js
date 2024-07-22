@@ -2,6 +2,7 @@ $( document ).ready(function(){
     var username_elem = $("#auth_login_panel_form_username");
     var password_elem = $("#auth_login_panel_form_password");
     
+    
     username_elem.textbox('textbox').bind('keydown', function(e){
         console.log(e);
         if (e.keyCode == 13){	// when press ENTER key, accept the inputed value.
@@ -11,6 +12,12 @@ $( document ).ready(function(){
     
     password_elem.textbox('textbox').bind('keydown', function(e){
         if (e.keyCode == 13){	// when press ENTER key, accept the inputed value.
+            loginSubmitForm();
+        }
+    });
+
+    $("#auth_login_panel_form_submit_button").linkbutton({
+        onClick:function() {
             loginSubmitForm();
         }
     });
@@ -45,7 +52,7 @@ $( document ).ready(function(){
                     });
                     setTimeout(function(){
                         window.location = "{{ url_for('applayout.applayout')}}";
-                    },2000);
+                    },1000);
                 }
             }
         });

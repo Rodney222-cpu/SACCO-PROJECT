@@ -1,7 +1,6 @@
 from flask_mysqldb import MySQL 
 import MySQLdb.cursors
 import hashlib
-import click
 from getpass import getpass
 
 class AdminUserOpps():
@@ -59,8 +58,6 @@ class AdminUserOpps():
                     continue
 
             break
-
-
 
         cursor.execute(
             '''SELECT * FROM user WHERE email= %(email)s ''', 

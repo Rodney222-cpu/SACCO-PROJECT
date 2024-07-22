@@ -19,6 +19,8 @@ Configuration File
 2. Set up an environment variable ADMINPORTAL_SETTINGS with value as path to the above file. For example, run the following command
 ```
 export ADMINPORTAL_SETTINGS=/path/to/settings.cfg 
+OR
+set 
 ```
 Ensure that you set the right path.
 

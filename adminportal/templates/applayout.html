@@ -24,11 +24,14 @@
         </div>
         <div data-options="region:'center'" class="applyout-center-panel">
             <div class="easyui-tabs applyout-center-panel-tabs" data-options="fit:true,tabPosition:'left'">
-                <div title="{{ _('SACCOs') }}" data-options="iconCls:'icon-man',closable:false"></div>
-                <div title="{{ _('Transactions') }}" data-options="iconCls:'icon-transactions',closable:false"></div>
-                <div title="{{ _('Audit Trail') }}" data-options="iconCls:'icon-list',closable:false"></div>
-                <div title="{{ _('Users') }}" data-options="iconCls:'icon-people',closable:false"></div>
-                <div title="{{ _('ACGs') }}" data-options="iconCls:'icon-control-center',closable:false,href:'{{ url_for("acg.acgs") }}'"></div>
+                {% for route in routes %}
+                    <div 
+                        id="{{ route['id'] }}"
+                        title="{{ route['title'] }}" 
+                        data-options="iconCls:'{{ route['icon'] }}',closable:false">
+                    
+                    </div>
+                {% endfor %}
             </div>
         </div>
         <div data-options="region:'south'" align="center" class="applyout-footer-panel">
@@ -40,7 +43,6 @@
 </body>
     <script>
     {%  include 'js/applayout.js' %}
-    {%  include 'acgs/acgs.js' %}
     </script>
 {% endblock %}
 
