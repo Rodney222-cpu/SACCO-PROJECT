@@ -5,7 +5,63 @@ Yo SACCO is a web application written in Python to digitize credit communities. 
 Setting Up Databases
 ====================================================
 Follow instructions below to set up the database.
-1. Create the MySQL database on your system and obtain the credentials host,username,password and db 
+1. Create the MySQL database on your system and obtain the credentials host,username,password and db.
+Use the following commands to create the database and the use:
+```
+mysql -u root -p
+create database yosacco;
+create user yosacco@localhost identified by "************";
+grant all privileges on yosacco.* to "yosacco"@"localhost";
+```
+
+#To see the databases, run the following command
+```
+show databases;
+```
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| yosacco            |
++--------------------+
+5 rows in set (0.01 sec)
+
+# To use/open a database, use the following command:
+```
+use yosacco;
+```
+
+#To list tables in our yosacco database, use the following command:
+```
+show tables;
+```
++-------------------+
+| Tables_in_yosacco |
++-------------------+
+| acg               |
+| audit_trail       |
+| sacco             |
+| sacco_member      |
+| transaction_log   |
+| user              |
+| user_acg          |
++-------------------+
+7 rows in set (0.01 sec)
+
+
+# To import the database, run the following command:
+```
+cd docs
+mysql yosacco < schema.sql -u yosacco -p
+```
+# To import changes, run the following command:
+```
+mysql yosacco < db_changes/20240716_jt.sql -u yosacco -p
+```
 2. cd into docs directory
 3. import the database with the following command:
 ```
@@ -18,7 +74,7 @@ Configuration File
 1. Create a file called settings.cfg and place it somewhere you can access it.
 2. Set up an environment variable ADMINPORTAL_SETTINGS with value as path to the above file. For example, run the following command
 ```
-export ADMINPORTAL_SETTINGS=/path/to/settings.cfg 
+export ADMINPORTAL_SETTINGS=/home/rodney/projects/yosacco/adminportal 
 OR
 set 
 ```
@@ -35,3 +91,19 @@ flask create-user
 3. Provide the name, email, phone and password.
 4. The user shall be created. If the user already exists, they will be updated with the new data given
 
+Creating python Virtual Environments (env)
+======================================================
+```
+python -m venv yosacco-env
+source  yosacco-env/bin/activate
+
+```
+To Deactivate, run the following command
+```
+deactivate
+```
+
+Issue installing flask_mysqldb/mysqlclient
+=======================================================
+Run the following command
+yum install python3-devel mysql-devel pkgconfig
