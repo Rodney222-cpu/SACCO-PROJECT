@@ -1,0 +1,37 @@
+<div id="acgs_html_form_container" style="display:none;">
+    <form id="acgs_html_form_id" 
+        method="post" 
+        style="margin:0;padding:20px 50px">
+        <h3>{{ _('ACG Entry') }}</h3>
+        <div style="margin-bottom:10px">
+            <input name="name" 
+                class="easyui-textbox" 
+                required="true" 
+                label="{{ _('ACG Name') }}" style="width:100%">
+        </div>
+        
+        <div style="margin-bottom:10px">
+            <table
+                id="acgs_html_form_privileges_table">
+                <tr>
+                    <td>
+                        <input name="privilage_name[]" 
+                            class="easyui-combobox" 
+                            required="true" 
+                            label="{{ _('Privilege Name') }}" 
+                            style="width:100%">
+                    </td>
+                </tr>
+            </table>
+            <a href="#" 
+                id="acgs_html_form_privileges_add"
+                class="easyui-linkbutton" 
+                title="More Privileges">{{ _('Add') }}</a>
+
+            <a href="#" 
+                id="acgs_html_form_privileges_remove"
+                class="easyui-linkbutton" 
+                title="More Privileges">{{ _('Add') }}</a>
+        </div>
+    </form>
+</div>

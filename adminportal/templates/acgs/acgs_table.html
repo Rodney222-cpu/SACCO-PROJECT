@@ -14,6 +14,25 @@
         </tr>
     </thead>
 </table>
-<script>
-    
-</script>
+
+<div id="acgs_html_table_toolbar">
+    <a href="javascript:void(0)" 
+        id="acgs_html_table_toolbar_new_button"
+        class="easyui-linkbutton" 
+        iconCls="icon-add" 
+        plain="false">{{ _('New ACG') }}</a>
+    <a href="javascript:void(0)" 
+        class="easyui-linkbutton" 
+        id="acgs_html_table_toolbar_update_button"
+        iconCls="icon-edit" 
+        plain="false" 
+        onclick="acgsAddNewAcg()">{{ _('Update ACG') }}</a>
+    <a href="javascript:void(0)" 
+        class="easyui-linkbutton" 
+        id="acgs_html_table_toolbar_delete_button"
+        iconCls="icon-remove" 
+        plain="false" 
+        onclick="acgsAddNewAcg()">{{ _('Delete ACG') }}</a>
+</div>
+
+{%  include 'acgs/acgs_form.html' %}
