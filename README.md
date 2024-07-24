@@ -18,6 +18,7 @@ grant all privileges on yosacco.* to "yosacco"@"localhost";
 ```
 show databases;
 ```
+```
 mysql> show databases;
 +--------------------+
 | Database           |
@@ -29,6 +30,7 @@ mysql> show databases;
 | yosacco            |
 +--------------------+
 5 rows in set (0.01 sec)
+```
 
 # To use/open a database, use the following command:
 ```
@@ -38,6 +40,8 @@ use yosacco;
 #To list tables in our yosacco database, use the following command:
 ```
 show tables;
+```
+
 ```
 +-------------------+
 | Tables_in_yosacco |
@@ -51,7 +55,7 @@ show tables;
 | user_acg          |
 +-------------------+
 7 rows in set (0.01 sec)
-
+```
 
 # To import the database, run the following command:
 ```
