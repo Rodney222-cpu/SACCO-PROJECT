@@ -111,3 +111,8 @@ Issue installing flask_mysqldb/mysqlclient
 =======================================================
 Run the following command
 yum install python3-devel mysql-devel pkgconfig
+
+Running your Flask Application
+=======================================================
+From the root directory, run the following command:
+flask --app adminportal run --debug
