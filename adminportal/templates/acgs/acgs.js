@@ -18,61 +18,128 @@ $("#acgs_html_table_toolbar_delete_button").linkbutton();
 
 
 function acgsAddNewAcg()   {
+    acgs_reset_form();
+    
     $('#acgs_html_form_container')
     .dialog({
         title: '{{ _("New ACG") }}',
         width: 500,
         height: 400,
         onClose: function() {
-            dialog_elem.panel('destroy');
+            //acgs_reset_form();
         },
         modal: true,
+        onOpen: function() {
+            var acgs_html_form_input_name = $('#acgs_html_form_input_name'),
+            acgs_html_form_input_privileges_table = $('#acgs_html_form_input_privileges_table'),
+            acgs_html_form_input_privilege_0 = $('#acgs_html_form_input_privilege_0');
+            acgs_html_form_privileges_add = $('#acgs_html_form_privileges_add');
+            acgs_html_form_privileges_remove =$('#acgs_html_form_privileges_remove')
+
+            acgs_html_form_input_name.textbox({});
+            acgs_make_privilegs_combobox(acgs_html_form_input_privilege_0);
+
+            acgs_html_form_privileges_add.linkbutton({
+                iconCls: 'icon-add',
+                onClick: function () {
+                    acgs_add_privilege();
+                }
+            });
+            acgs_html_form_privileges_remove.linkbutton({
+                iconCls: 'icon-cancel',
+                onClick: function() {
+                    acgs_remove_privilege();
+                }
+            })
+
+        },
         buttons: [{
-            text:{{ _("Save") }}'',
+            text:'{{ _("Save") }}',
                 handler:function(){
-                    var validate = $("#"+dialogs.form_id).form('validate');
-                    if (validate) {
-                        $("#"+dialogs.form_id).form('submit', {
-                            url: dialogs.submission_on_edit_url,
-                            onSubmit: function() {
-                                //$("#"+form_box_id).hide();
-                                dialog_elem.panel("minimize");
-                                showProgress(dialogs.form_submission);
-                            },
-                            success: function(data) {
-                                closeProgress();
-                                try {
-                                    var json_req = jQuery.parseJSON(data);
-                                } catch (ex) {
-                                    displayE(dialogs.error_title,  ex+" "+ex.stack, "error", form_box_id);
-                                }
-                                if (json_req.error) {
-                                    if (json_req.code == 10000) {
-                                        showFormDialog(form_box_id);
-                                        return displayExeptions(json_req.error, dialogs.error_title);
-                                    }
-                                    displayE(dialogs.error_title, json_req.error, "error", form_box_id);
-                                } else {
-                                    $("#"+form_box_id).dialog("close");
-                                    $.messager.alert(json_req.dialog_title,
-                                    json_req.data,
-                                    "info",
-                                    function(){
-                                        $("#"+form_box_id).dialog("close");
-                                        $("#"+dialogs.grid_id).datagrid('reload');
-                                    });
-                                }
-                            },
-                        });
-                    }
+                    acgs_form_submit();
                 }
             },{
             text:'Close',
                 handler:function(){
-                    dialog_elem.panel('destroy');
+                    $('#acgs_html_form_container').dialog('close');
+                    acgs_reset_form();
                 }
             }],
     });
 
     $('#acgs_html_form_id').form('clear');
+}
+
+function acgs_reset_form()
+{
+    $('#acgs_html_form_input_privileges_table tr:last-child').remove(); 
+    acgs_add_privilege();
+    $("#acgs_html_form_id").form('reset')
+}
+
+function acgs_make_privilegs_combobox(element)
+{
+    element.combobox({
+        url: '{{ url_for("acg.acgsGetPrivilegesForCombo") }}',
+        valueField: 'id',
+        textField: 'text',
+        labelWidth: '120'
+    });
+}
+
+
+function acgs_add_privilege()
+{
+    acgs_html_form_input_privileges_table = $('#acgs_html_form_input_privileges_table');
+    var num = $('#acgs_html_form_input_privileges_table tr').length;
+    var html_elem = '<input '
+                    +'        id="acgs_html_form_input_privilege_'+num+'" '
+                    +'        name="privilage_name[]"   '
+                    +'        class="easyui-combobox"   '
+                    +'        required="true"           '
+                    +'        label="{{ _('Privilege Name') }}" ' 
+                    +'        style="width:100%" />   '
+    var new_row = "<tr><td>"+html_elem+"</td><td></td></tr>";
+    acgs_html_form_input_privileges_table.append(new_row);
+    var element = $("#acgs_html_form_input_privilege_"+num);
+    acgs_make_privilegs_combobox(element);
+
+}
+
+function acgs_remove_privilege()
+{
+    $('#acgs_html_form_input_privileges_table tr:last-child').remove(); 
+}
+
+function acgs_form_submit()
+{
+    if (!$("#acgs_html_form_id").form('validate')) {
+        return;
+    }
+    $('#acgs_html_form_container').dialog('close');
+    showProgress('{{ _('%(progression)s', progression=messages['progression']) }}', '{{ _('%(please_wait)s', please_wait=messages['please_wait']) }}');
+    $("#acgs_html_form_id").form('submit', {
+        url: '{{ url_for("acg.addAcg") }}',
+        method: 'post',
+        success: function(data) {
+            closeProgress();
+            if (data.status != "OK"){
+                $.messager.alert({
+                    title: data.status,
+                    msg: data.message,
+                    fn: function(){
+                        //...
+                    }
+                });
+            } else {
+                $.messager.show({
+                    title: data.status,
+                    msg:data.message,
+                    timeout:3000,
+                    showType:'slide'
+                });
+                $('#acgs_html_form_container').dialog("open");
+            }
+        }
+    });
 }

@@ -17,5 +17,18 @@ acg_bp = Blueprint('acg', __name__)
 def index():
     controllerAcg = ControllerAcg(current_app)
     return controllerAcg.index()
+
+@acg_bp.route('/acgsGetPrivilegesForCombo', methods=('GET', 'POST'))
+def acgsGetPrivilegesForCombo():
+    controllerAcg = ControllerAcg(current_app)
+    return controllerAcg.getPrivilegesForCombobox()
+
+
+@acg_bp.route('/addAcg', methods=('GET', 'POST'))
+def addAcg():
+    controllerAcg = ControllerAcg(current_app)
+    return controllerAcg.addAcg()
+
+
     
 

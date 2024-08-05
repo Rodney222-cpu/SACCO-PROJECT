@@ -4,22 +4,33 @@
         style="margin:0;padding:20px 50px">
         <h3>{{ _('ACG Entry') }}</h3>
         <div style="margin-bottom:10px">
-            <input name="name" 
+            <input 
+                name="name" 
+                id="acgs_html_form_input_name"
                 class="easyui-textbox" 
                 required="true" 
                 label="{{ _('ACG Name') }}" style="width:100%">
         </div>
-        
+
+        <strong>{{ _('%(privileges_title)s', privileges_title=messages['privilegs']) }}</strong>
+        <hr/>
         <div style="margin-bottom:10px">
             <table
-                id="acgs_html_form_privileges_table">
+                width="100%"
+                id="acgs_html_form_input_privileges_table">
                 <tr>
                     <td>
-                        <input name="privilage_name[]" 
+                        <input 
+                            id="acgs_html_form_input_privilege_0"
+                            name="privilage_name[]" 
                             class="easyui-combobox" 
                             required="true" 
-                            label="{{ _('Privilege Name') }}" 
+                            label="{{ _('%(privilege_name)s', privilege_name=messages['privilege_name']) }}" 
+                            data-options=""
                             style="width:100%">
+                    </td>
+                    <td>
+
                     </td>
                 </tr>
             </table>
@@ -31,7 +42,7 @@
             <a href="#" 
                 id="acgs_html_form_privileges_remove"
                 class="easyui-linkbutton" 
-                title="More Privileges">{{ _('Add') }}</a>
+                title="More Privileges">{{ _('Remove') }}</a>
         </div>
     </form>
 </div>

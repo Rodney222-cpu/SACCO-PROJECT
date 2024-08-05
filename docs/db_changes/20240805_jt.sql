@@ -1,0 +1,1 @@
+ALTER TABLE `sacco_member` ADD CONSTRAINT `Fk_sacco_member_sacco_id` FOREIGN KEY `Fk_sacco_member_sacco_id`(`sacco_id`) REFERENCES `sacco`(`id`) ON DELETE CASCADE;
