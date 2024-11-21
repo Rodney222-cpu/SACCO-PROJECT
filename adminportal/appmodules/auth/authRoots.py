@@ -28,4 +28,3 @@ def authenticate():
 def logout():
     authController = ControllerAuth(current_app)
     return authController.logout()
-

@@ -71,3 +71,8 @@ html, body {
     font-size: 12px;
     font-weight: normal;
 }
+.label-anchor {
+    text-decoration: none;
+    color: #006b05;
+    font-weight: bolder;
+}

@@ -1,0 +1,74 @@
+<div id="user_html_form_container" style="display:none;">
+    <form id="user_html_form_id" 
+        method="post" 
+        style="margin:0;padding:20px 50px">
+        <h3>{{ _('USER Entry') }}</h3>
+        <div style="margin-bottom:10px">
+            <input 
+                name="name" 
+                id="user_html_form_input_name"
+                class="easyui-textbox" 
+                required="true" 
+                label="{{ _('USER Name') }}" style="width:100%">
+        </div>
+        <div style="margin-bottom:10px">
+            <input 
+                name="email" 
+                id="user_html_form_input_email"
+                class="easyui-textbox" 
+                required="true" 
+                label="{{ _('USER Email') }}" style="width:100%">
+        </div>
+        <div style="margin-bottom:10px">
+            <input 
+                name="phone" 
+                id="user_html_form_input_phone"
+                class="easyui-textbox" 
+                required="true" 
+                label="{{ _('USER Phone') }}" style="width:100%">
+        </div>
+        <div style="margin-bottom:10px">
+            <input 
+                name="password" 
+                id="user_html_form_input_password"
+                class="easyui-passwordbox" 
+                prompt="Enter your Password"
+                required="true" 
+                label="{{ _('USER Password') }}" style="width:100%">
+        </div>
+       
+
+        <strong>{{ _('%(user_acgs_title)s', user_acgs_title=messages['user_acgs']) }}</strong>
+        <hr/>
+        <div style="margin-bottom:10px">
+            <table
+                width="100%"
+                id="user_html_form_input_user_acgs_table">
+                <tr>
+                    <td>
+                        <input 
+                            id="user_html_form_input_user_acg_0"
+                            name="user_acg_name[]" 
+                            class="easyui-combobox" 
+                            required="true" 
+                            label="{{ _('%(user_acg_name)s', user_acg_name=messages['user_acgs']) }}" 
+                            data-options=""
+                            style="width:100%">
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+            </table>
+            <a href="#" 
+                id="user_html_form_user_acgs_add"
+                class="easyui-linkbutton" 
+                title="More User_acgs">{{ _('Add') }}</a>
+
+            <a href="#" 
+                id="user_html_form_user_acgs_remove"
+                class="easyui-linkbutton" 
+                title="More User_acgs">{{ _('Remove') }}</a>
+        </div>
+    </form>
+</div>

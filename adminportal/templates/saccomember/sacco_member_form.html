@@ -1,0 +1,105 @@
+<div id="sacco_member_html_form_container" style="display:none;">
+    <form id="sacco_member_html_form_id" 
+        method="post" 
+        style="margin:0;padding:20px 50px">
+        <h3>{{ _('SACCO MEMBER Entry') }}</h3>
+        <div style="margin-bottom:10px">
+            <input 
+                name="account_number" 
+                id="sacco_member_html_form_input_account_number"
+                class="easyui-textbox" 
+                required="true" 
+                label="{{ _('Account Number') }}" style="width:100%">
+        </div>
+
+        <div style="margin-bottom:10px">
+            <input 
+                name="fname" 
+                type="text"
+                id="sacco_member_html_form_input_fname"
+                class="easyui-textbox" 
+                required="true" 
+                label="{{ _('First Name') }}" style="width:100%">
+        </div>
+
+        <div style="margin-bottom:10px">
+            <input 
+                name="lname" 
+                id="sacco_member_html_form_input_lname"
+                class="easyui-textbox" 
+                type="text"
+                required="true" 
+                label="{{ _('Last Name') }}" style="width:100%">
+        </div>
+
+        <div style="margin-bottom:10px">
+            <input 
+                name="gender" 
+                id="sacco_member_html_form_input_gender"
+                class="easyui-combobox" 
+                required="true" 
+                label="{{ _('Gender') }}" style="width:100%">
+        </div>
+
+        <div style="margin-bottom:10px">
+            <input 
+                name="phone" 
+                id="sacco_member_html_form_input_phone"
+                class="easyui-textbox"
+                type="number" 
+                required="true" 
+                label="{{ _('Phone') }}" style="width:100%">
+        </div>
+
+        <div style="margin-bottom:10px">
+            <input 
+                name="email" 
+                id="sacco_member_html_form_input_email"
+                class="easyui-textbox" 
+                type="email"
+                required="true" 
+                label="{{ _(' Email') }}" style="width:100%">
+        </div>
+
+        <div style="margin-bottom:10px">
+            <input
+                name="role"
+                id="sacco_member_html_form_input_role"
+                class="easyui-combobox"
+                type="text"
+                required="true"
+                label="{{ _('Role') }}" style="width:100%">
+        </div>
+
+        <div style="margin-bottom:10px">
+            <input 
+                name="balance" 
+                id="sacco_member_html_form_input_balance"
+                class="easyui-textbox" 
+                required="true" 
+                label="{{ _('Balance') }}" style="width:100%">
+        </div>
+
+        <div style="margin-bottom:10px">
+            <input 
+                name="next_of_kin_name" 
+                id="sacco_member_html_form_input_next_of_kin_name"
+                class="easyui-textbox" 
+                type="text"
+                required="true" 
+                label="{{ _('Next Of Kin Name') }}" style="width:100%">
+        </div>
+
+        <div style="margin-bottom:10px">
+            <input 
+                name="date_of_birth" 
+                id="sacco_member_html_form_input_date_of_birth"
+                class="easyui-datebox"
+                type="text" 
+                required="true" 
+                label="{{ _('Date Of Birth') }}" style="width:100%">
+        </div>
+
+        <input id="selected_sacco_id" type="hidden" name="sacco_id" value="{{sacco_id}}"/>
+    </form>
+</div>

@@ -21,6 +21,27 @@ def create_app():
 
     from .appmodules.acg.acgRoutes import acg_bp
     app.register_blueprint(acg_bp)
+
+    from .appmodules.user.userRoutes import user_bp
+    app.register_blueprint(user_bp)
+
+    from .appmodules.sacco.saccoRoutes import sacco_bp
+    app.register_blueprint(sacco_bp)
+
+    from .appmodules.saccoMember.saccomemberRoutes import sacco_member_bp
+    app.register_blueprint(sacco_member_bp)
+
+    from .appmodules.auditTrail.audittrailRoutes import audit_trail_bp
+    app.register_blueprint(audit_trail_bp)
+
+    from .appmodules.transactions.transactionsRoutes import transactions_bp
+    app.register_blueprint(transactions_bp)
+
+
+
+
+    
+
     
     return app
 
