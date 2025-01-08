@@ -1,0 +1,29 @@
+<table
+id="members_html_table"
+class="easyui-datagrid"
+title=""
+style="width:700px;height:250px"
+data-options="rownumbers:true,fit:true,singleSelect:true,url:'datagrid_data1.json',method:'get'">
+<thead>
+    <tr>
+        <th data-options="field:'itemid',width:'10%'">ID</th>
+        <th data-options="field:'fname',width:'10%'">{{_('First Name') }}</th>
+        <th data-options="field:'lname',width:'10%'">{{_('Last Name') }}</th>
+        <th data-options="field:'phone',width:'10%'">{{_('Phone') }}</th>
+        <th data-options="field:'email',width:'15%'">{{_('Email') }}</th>
+        <th data-options="field:'role',width:'10%'">{{_('Role') }}</th>
+        <th data-options="field:'balance',width:'10%'">{{_('Balance') }}</th>
+        <th data-options="field:'created_on',width:'40%',align:'right'">{{ _('Created On') }}</th>
+        <th data-options="field:'updated_on',width:'40%',align:'right'">{{ _('Updated On') }}</th>
+        <th data-options="field:'action',width:'20%',align:'right'">Options</th>
+    </tr>
+</thead>
+</table>
+
+<div id="members_html_table_toolbar">
+    <a href="javascript:void(0)" 
+        id="members_html_table_toolbar_new_button"
+        class="easyui-linkbutton" 
+        iconCls="icon-add" 
+        plain="false">{{ _('New MEMBER') }}</a>
+</div>

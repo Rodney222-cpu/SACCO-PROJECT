@@ -1,5 +1,5 @@
 from flask_babel import _
-from flask import (session,request,redirect, render_template)
+from flask import (jsonify, session,request,redirect, render_template)
 from flask import current_app
 import hashlib
 import json
@@ -153,3 +153,15 @@ class ControllerAcg():
             action = "Deleted acg"+acgBeforeDelete['name']+" "
 
         return acgRepo.deleteAcgs(rows, session['user'], oldData, action)
+
+
+    def  getAcgsForCombo(self):
+         acgRepo = AcgRepo(current_app)
+
+         id = request.args.get('id')  
+         name = request.args.get('name')
+
+         acgs = acgRepo.getAcgsForCombo(id, name)
+
+         return jsonify(acgs)
+        

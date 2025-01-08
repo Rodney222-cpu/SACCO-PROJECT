@@ -18,7 +18,7 @@ $("#sacco_member_html_table").datagrid({
         {field:'role', title:'{{ _('Role') }}',width:'20%'},
         {field:'balance', title:'{{ _('Balance') }}',width:'20%'},
         {field:'next_of_kin_name', title:'{{ _('Next Of Kin Name') }}',width:'20%'},
-        {field:'date_of_birth', title:'{{ _('Date') }}',width:'20%'},
+        {field:'date_of_birth', title:'{{ _('Date of Birth') }}',width:'20%'},
         {field:'created_on', title:'{{ _('Created On') }}',width:'20%'},
         {field:'updated_on', title:'{{ _('Updated On') }}',width:'20%'},
         {field:'options', title:'{{ _('Options') }}', width:'15%',

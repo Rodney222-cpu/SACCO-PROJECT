@@ -195,6 +195,7 @@ global_functions.user_make_acgs_combobox = function (element)
 {
     element.combobox({
         url: '{{ url_for("acg.getAcgsForCombo") }}',
+        method : 'get',
         valueField: 'id',
         textField: 'text',
         labelWidth: '120'

@@ -1,0 +1,102 @@
+{% extends 'base_html.html' %}
+
+{% block body %}
+<body>
+        
+    <div align="center" id="auth_login_panel" style="padding-top: 100px;">
+        
+        <div 
+            align="center"
+            id="auth_login_panel_panel"
+            class="easyui-panel .auth_login_panel_panel" 
+            data-options="width:500,height:400"
+            title="{{_('Member Login Portal') }}" >
+            <div align="center">
+                <span>
+                    <img class="auth_login_panel_logo"
+                        src="{{ url_for('static', filename='images/yo_logo.png') }}" />
+                </span>
+            </div> 
+            <form method="post" 
+                id="auth_login_panel_form" 
+                action="{{ url_for("auth.authenticate") }}"
+                onSubmit="return handle_login();">
+                <table width="300" height="160" cellpadding="5" cellspacing="5">
+                    <tr>
+                        <td height="51">
+                            {{ _('Sacco ID') }}:<BR/>
+                            <input size="25" 
+                                class="easyui-textbox" 
+                                data-options="width:300"
+                                type="text" 
+                                name="sacco_id" 
+                                id="auth_login_panel_form_sacco_id" 
+                                data-options="iconCls:'icon-man',required:true">
+                            </input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="51">
+                            {{ _('Phone/Email') }}:<BR/>
+                            <input size="25" 
+                                class="easyui-textbox" 
+                                data-options="width:300"
+                                type="text" 
+                                name="phone_or_email"
+                                placeholder="Enter phone or email"
+                                id="auth_login_panel_form_phone_or_email" 
+                                data-options="iconCls:'custom-icon-email',required:true">
+                            </input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="51">
+                            {{ _('Password') }}:<BR/>
+                            <input 
+                                size="25" 
+                                class="easyui-textbox" 
+                                data-options="width:300"
+                                type="password" 
+                                name="password" 
+                                id="auth_login_panel_form_password" 
+                                data-options="iconCls:'icon-lock',required:true">
+                            </input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a 
+                                href="#"
+                                class="easyui-linkbutton" 
+                                data-options="width:300"
+                                id="auth_login_panel_form_submit_button">
+                                {{ _('Login Now') }}
+                            </a>
+
+                            <span 
+                                id="auth_login_panel_form_status" 
+                                class="auth_login_panel_form_status">
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+                <div align="center">
+                    <span class="copyright">{{ _('%(copyright)s ', copyright=messages['copyright'] ) }}</span>
+                </div>
+            </form> 
+        
+        </div>
+        <script>
+            {%  include 'auth/js/login.js' %}
+        </script>
+        <!-- End of Login Panel -->
+
+    </div>
+</body>
+{% endblock %}
+
+
+
+{% block footer %}
+  
+{% endblock %}

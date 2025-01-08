@@ -77,4 +77,4 @@ class AdminUserOpps():
             cursor.execute(sql, (name, email, phone, hashlib.sha256(password.encode()).hexdigest()))
             cursor.connection.commit()
 
-        print("You have suuccessfully updated your user")
+        print("You have successfully updated your user")

@@ -213,3 +213,17 @@ class AcgRepo():
 
         return {'status':"OK", "message":self.messages['acg_deleted']}
     
+
+    def getAcgsForCombo(self, id, name):
+        try:
+            cursor = self.db.connection.cursor(MySQLdb.cursors.DictCursor)
+        except Exception:
+            return {'status':"ERROR", "message":f"Exception: {Exception}"}
+        
+        cursor.execute(
+            '''SELECT `id`, `name` FROM `acg` WHERE `id` = %(id)s AND `name`=%(name)s''',
+            {"id":id, "name":name}
+        )
+        allAcgs = cursor.fetchall()
+
+        return allAcgs

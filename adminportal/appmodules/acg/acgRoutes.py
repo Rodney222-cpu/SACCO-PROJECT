@@ -23,7 +23,6 @@ def acgsGetPrivilegesForCombo():
     controllerAcg = ControllerAcg(current_app)
     return controllerAcg.getPrivilegesForCombobox()
 
-
 @acg_bp.route('/addAcg', methods=('GET', 'POST'))
 def addAcg():
     controllerAcg = ControllerAcg(current_app)
