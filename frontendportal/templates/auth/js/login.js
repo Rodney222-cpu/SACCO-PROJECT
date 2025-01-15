@@ -1,7 +1,7 @@
 $( document ).ready(function() {
     
     var sacco_id_elem = $("#auth_login_panel_form_sacco_id");
-    var phone_or_email_elem=$("#auth_login_panel_form_phone_or_email")
+    var phone_or_email_elem=$("#auth_login_panel_form_username")
     var password_elem = $("#auth_login_panel_form_password");
     var submit_button_elem = $("#auth_login_panel_form_submit_button");
     

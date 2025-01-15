@@ -3,9 +3,13 @@
     "app_name": "Yo! SACCO - Members Portal",
     "log_out": "Log Out",
     "error_user_same_email_exist": "User with email address {} already exists",
-    "error_user_not_exist": "User does not exist",
     "user_authenticated": "User authentication was successful",
     "pass_auth_failed": "Password authentication failed.",
     "invalid_saccoid": "Invalid %s",
-    "invalid_password": "Invalid password"
+    "invalid_password": "Invalid password",
+    "error_sacco_member_not_exist": "Sacco member does not exist.",
+    "invalid_phone_or_email": "Invalid phone or email",
+    "sacco_member_authenticated": "Sacco member authentication was successful",
+    "error_sacco_not_exist" : "Sacco does not exist"
+
 }

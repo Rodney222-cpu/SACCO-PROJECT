@@ -4,6 +4,7 @@ from flask import current_app
 import hashlib
 from ...repositories.MessagesRepo import getMessages
 from ...repositories.SaccoMemberRepo import SaccoMemberRepo
+from ...repositories.SaccoRepo import SaccoRepo
 import sys
 
 class ControllerAuth():
@@ -17,15 +18,15 @@ class ControllerAuth():
 
     def index(self):
         current_app.logger.info(msg=session)
-        if 'email' in session:
+        if 'group_id' in session:
             return redirect('/applayout')
         
         return render_template('auth/login.html', messages=self.messages)
 
     def authenticate(self):
         current_app.logger.debug(current_app.config)
-        sacco_id = request.form.get("sacco_id")
-        phone_or_email = request.form.get("phone_or_email")
+        sacco_id = request.form.get("sacco_id") 
+        username = request.form.get("username")
         password = request.form.get("password")
         if sacco_id is None:
             return {
@@ -33,28 +34,31 @@ class ControllerAuth():
                 "message":_("%(msg)s ", msg=self.messages['invalid_saccoid'] %'Sacco id %s' %(sacco_id))
             }
         
+        
+        if username is None:
+            return {
+                "status": "ERROR",
+                "message":_("%(msg)s", msg=self.messages['invalid_phone_or_email'])
+            }
+        
+        
         if password is None:
             return {
                 "status": "ERROR",
                 "message":_("%(msg)s ", msg=self.messages['invalid_password'])
             } 
         
-        if phone_or_email is None:
-            return {
-                "status": "ERROR",
-                "message":_("%(msg)s", msg=self.messages['invalid_phone_or_email'])
-            }
         
         if len(sacco_id) < 1:
             return {
                 "status": "ERROR",
-                "message":_("%(msg)s ", msg=self.messages['invalid_saccoid'] %'Sacco id %s' %(sacco_id))
+                "message":_("%(msg)s ", msg=self.messages['invalid_groupid'] %'Group id %s' %(sacco_id))
             } 
         
-        if len(phone_or_email) < 1:
+        if len(username) < 1:
             return {
                 "status": "ERROR",
-                "message":_("%(msg)s", msg=self.messages['invalid_phone_or_email'] %'Phone %s' %(phone_or_email))
+                "message":_("%(msg)s", msg=self.messages['invalid_phone_or_email'] %'Phone %s' %(username))
             }
         
         if len(password) < 1:
@@ -63,9 +67,13 @@ class ControllerAuth():
                 "message":_("%(msg)s ", msg=self.messages['pass_auth_failed'])
             } 
         
-        
+        saccoRepo = SaccoRepo(current_app)
+        sacco = saccoRepo.getOneSaccoBySaccoId(sacco_id)
+        if not sacco:
+            return {'status': "ERROR", "message":_('%(msg)s', msg=self.messages['error_sacco_not_exist'])}
+       
         saccomemberRepo = SaccoMemberRepo(current_app)
-        saccomember = saccomemberRepo.getOneSaccoMemberBySaccoId(sacco_id)
+        saccomember = saccomemberRepo.getSaccoMemberBySaccoIdAndUsername(sacco['id'], username)
         print(saccomember, file=sys.stderr)
         if not saccomember:
             return {'status':"ERROR", "message":_('%(msg)s', msg=self.messages['error_sacco_member_not_exist'])}
@@ -74,8 +82,8 @@ class ControllerAuth():
             hashed_pw = hashlib.sha256(password.encode()).hexdigest()
             if saccomember['password'] == hashed_pw:
                 session['sacco_id'] = sacco_id
-                session['phone_or_email'] = phone_or_email
-                session['saccomember'] = saccomemberRepo.getOneSaccoMemberBySaccoId()
+                session['username'] = username
+                session['saccomember'] = saccomemberRepo.getSaccoMemberBySaccoId(sacco_id)
                 
                 return {'status':"OK", "message":_('%(msg)s', msg=self.messages['sacco_member_authenticated'])}
            

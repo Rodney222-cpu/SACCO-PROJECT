@@ -1,5 +1,6 @@
 from flask_mysqldb import MySQL 
 import MySQLdb.cursors
+import hashlib
 from flask_babel import _
 from .MessagesRepo import getMessages
 from ..repositories.AuditTrailRepo import AuditTrailRepo
@@ -56,15 +57,27 @@ class SaccoMemberRepo():
           
     
     
-    def addSaccoMember(self, sacco_id, account_number, fname, lname, gender, phone, email, role, balance, next_of_kin_name, date_of_birth):
+    def addSaccoMember(self, sacco_id, account_number, fname, lname, gender, phone, email, role, balance, next_of_kin_name, date_of_birth, password):
         try:
             cursor = self.db.connection.cursor(MySQLdb.cursors.DictCursor)
         except Exception:
             return {'status':"ERROR", "message":f"Exception: {Exception}"}
         
         cursor.execute(
-            '''INSERT INTO `sacco_member`(sacco_id, account_number, fname, lname, gender, phone, email, role,  balance, next_of_kin_name, date_of_birth)
-               VALUES(%(sacco_id)s, %(account_number)s, %(fname)s, %(lname)s, %(gender)s, %(phone)s, %(email)s, %(role)s, %(balance)s, %(next_of_kin_name)s, %(date_of_birth)s)''',
+            '''SELECT * FROM `sacco_member` WHERE email= %(email)s  ''', 
+            {'email':email,}
+        )
+        saccomember = cursor.fetchone()
+
+        if saccomember:
+            return {'status':"ERROR", "message":"Sacco member with this email already exists"}
+        
+        hashed_password = hashlib.sha256(password.encode()).hexdigest()
+       
+
+        cursor.execute(
+            '''INSERT INTO `sacco_member`(sacco_id, account_number, fname, lname, gender, phone, email, role,  balance, next_of_kin_name, date_of_birth, password)
+               VALUES(%(sacco_id)s, %(account_number)s, %(fname)s, %(lname)s, %(gender)s, %(phone)s, %(email)s, %(role)s, %(balance)s, %(next_of_kin_name)s, %(date_of_birth)s, %(password)s)''',
                {
                    'sacco_id': sacco_id,
                    'account_number': account_number,
@@ -77,6 +90,7 @@ class SaccoMemberRepo():
                    'balance': balance,
                    'next_of_kin_name': next_of_kin_name,
                    'date_of_birth': date_of_birth,
+                   'password': hashed_password
                }
         )
         

@@ -2,6 +2,7 @@ from flask_babel import _
 from flask import (session,request, redirect, render_template)
 from flask import current_app
 import json
+import hashlib
 from ...repositories.MessagesRepo import getMessages
 from ...repositories.SaccoMemberRepo import SaccoMemberRepo
 from ...repositories.SaccoRepo import SaccoRepo
@@ -51,8 +52,14 @@ class ControllerSaccoMember():
         balance = request.form["balance"]
         next_of_kin_name = request.form["next_of_kin_name"]
         date_of_birth = request.form["date_of_birth"]
+        password = request.form["password"]
         action = "Created a new SACCO MEMBER with"+email
         data =""
+
+        if not isinstance(password, str) or not password.strip():
+            return {'status':"ERROR", "message":"Password must be a non empty string"}
+        
+        hashlib.sha256(password.encode()).hexdigest()
 
         saccomemberRepo = SaccoMemberRepo(current_app)
         saccomember = saccomemberRepo.getOneSaccoMemberByEmail(email)
@@ -83,7 +90,8 @@ class ControllerSaccoMember():
             role, 
             balance, 
             next_of_kin_name, 
-            date_of_birth
+            date_of_birth,
+            password
             )
 
    
@@ -137,6 +145,7 @@ class ControllerSaccoMember():
         balance = request.form.get("balance")
         next_of_kin_name = request.form.get("next_of_kin_name")
         date_of_birth = request.form.get("date_of_birth")
+        
 
         
         saccomemberRepo = SaccoMemberRepo(current_app)

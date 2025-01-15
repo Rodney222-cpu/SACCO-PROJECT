@@ -120,6 +120,7 @@ global_functions.saccomemberAddNewSaccoMember = function(row)   {
                 sacco_member_html_form_input_balance = $('#sacco_member_html_form_input_balance'),
                 sacco_member_html_form_input_next_of_kin_name = $('#sacco_member_html_form_input_next_of_kin_name'),
                 sacco_member_html_form_input_date_of_birth = $('#sacco_member_html_form_input_date_of_birth');
+                sacco_member_html_form_input_password = $('#sacco_member_html_form_input_password');
 
             sacco_member_html_form_input_account_number.textbox({
                 validType: 'number',
@@ -175,6 +176,12 @@ global_functions.saccomemberAddNewSaccoMember = function(row)   {
                 validType: 'date',
                 labelWidth: 125
             });
+            sacco_member_html_form_input_password.passwordbox({
+                required: false,
+                labelWidth: 150,
+                prompt: 'Password',
+                showEye: true
+            })
 
             if (typeof row.id != 'undefined') {
                 console.log(row);
