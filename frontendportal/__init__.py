@@ -23,6 +23,12 @@ def create_app():
     from .appmodules.members.membersRoutes import members_bp
     app.register_blueprint(members_bp)
 
+    from .appmodules.transactions.transactionsRoutes import transactions_bp
+    app.register_blueprint(transactions_bp)
+
+    from .appmodules.auditTrail.audittrailRoutes import audit_trail_bp
+    app.register_blueprint(audit_trail_bp)
+
 
 
     return app

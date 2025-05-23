@@ -1,0 +1,47 @@
+<div id="transactions_html_form_container" style="display:none;">
+    <form id="transactions_html_form_id" 
+        method="post" 
+        style="margin:0;padding:20px 50px">
+        <h3>{{ _('TRANSACTIONS Entry') }}</h3>
+       
+        <div style="margin-bottom:10px">
+            <input 
+                name="amount" 
+                type="number"
+                id="transactions_html_form_input_amount"
+                class="easyui-textbox" 
+                required="true" 
+                label="{{ _('Amount') }}" style="width:100%">
+        </div>
+
+        
+        <div style="margin-bottom:10px">
+            <input 
+                name="transaction_type" 
+                id="transactions_html_form_input_transaction_type"
+                class="easyui-combobox" 
+                required="true" 
+                label="{{ _('Transaction Type') }}" style="width:100%">
+        </div>
+
+        <div style="margin-bottom:10px">
+            <input 
+                name="payment_method" 
+                id="transactions_html_form_input_payment_method"
+                class="easyui-combobox" 
+                required="true" 
+                label="{{ _('Payment Method') }}" style="width:100%">
+        </div>
+
+        <div style="margin-bottom:10px;">
+            <input
+            name="narrative"
+            type="text"
+            id="transactions_html_form_input_narrative"
+            class="easyui-textbox"
+            required="true"
+            label="{{ _('Narrative')}}" style="width:100%">
+        </div>
+
+    </form>
+</div>

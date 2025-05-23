@@ -14,7 +14,12 @@
             </span>
 
             <div class="applayout-header-user-panel" align="right">
-                <strong>User:</strong> <span class="applayout-header-user-name">{{ session['user']['name'] }}</span><br/>
+                <strong>User:</strong>
+                 <span class="applayout-header-user-name">
+                    {% if 'user' in session %}
+                        {{ session['user']['name'] }}
+                    {% endif %}    
+                </span><br/>
                 <span>
                     <a href="#" 
                         class="easyui-linkbutton linkbutton-custom-style" 

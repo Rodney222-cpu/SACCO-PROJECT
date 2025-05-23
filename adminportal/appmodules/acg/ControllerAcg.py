@@ -155,13 +155,16 @@ class ControllerAcg():
         return acgRepo.deleteAcgs(rows, session['user'], oldData, action)
 
 
-    def  getAcgsForCombo(self):
-         acgRepo = AcgRepo(current_app)
-
-         id = request.args.get('id')  
-         name = request.args.get('name')
-
-         acgs = acgRepo.getAcgsForCombo(id, name)
-
-         return jsonify(acgs)
+    def getAcgsForCombo(self):
+        acgRepo = AcgRepo(current_app)
+        acgs = acgRepo.getAcgs()
+      
+        combobox_data = []
+        for acg in acgs:
+            combobox_data.append({
+                "id": acg['id'],
+                "text": acg['name']
+            })
+        
+        return jsonify(combobox_data)
         

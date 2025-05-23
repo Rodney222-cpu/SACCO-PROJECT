@@ -4,6 +4,7 @@ from flask import current_app
 import hashlib
 from ...repositories.MessagesRepo import getMessages
 from ...repositories.SaccoMemberRepo import SaccoMemberRepo
+from ...repositories.AuditTrailRepo import AuditTrailRepo
 from ...repositories.SaccoRepo import SaccoRepo
 import sys
 
@@ -73,6 +74,7 @@ class ControllerAuth():
             return {'status': "ERROR", "message":_('%(msg)s', msg=self.messages['error_sacco_not_exist'])}
        
         saccomemberRepo = SaccoMemberRepo(current_app)
+        auditTrail = AuditTrailRepo(current_app)
         saccomember = saccomemberRepo.getSaccoMemberBySaccoIdAndUsername(sacco['id'], username)
         print(saccomember, file=sys.stderr)
         if not saccomember:
@@ -81,9 +83,16 @@ class ControllerAuth():
             #Check user's password
             hashed_pw = hashlib.sha256(password.encode()).hexdigest()
             if saccomember['password'] == hashed_pw:
+                session['sacco'] = sacco
                 session['sacco_id'] = sacco_id
                 session['username'] = username
-                session['saccomember'] = saccomemberRepo.getSaccoMemberBySaccoId(sacco_id)
+                session['saccomember'] = saccomember
+                userAgent = request.user_agent.string
+                userIp = request.remote_addr
+                action = "Logged in from" +userIp+ ", UserAgent" + userAgent
+                atEntry = auditTrail.addAuditTrail(saccomember['fname'], saccomember['email'], action, "")
+                if atEntry['status'] != "OK":
+                    return atEntry
                 
                 return {'status':"OK", "message":_('%(msg)s', msg=self.messages['sacco_member_authenticated'])}
            
@@ -92,6 +101,12 @@ class ControllerAuth():
 
             
 
-    def logout(self):        
+    def logout(self): 
+        auditTrail = AuditTrailRepo(current_app)
+        action = "Logged Out"
+        atEntry = auditTrail.addAuditTrail(session['saccomember']['fname'], session['saccomember']['email'], action, "")
+        if atEntry['status'] != "OK":
+            return atEntry
+               
         session.clear()
         return {"status": "OK","message":_("Log Out was successful")}

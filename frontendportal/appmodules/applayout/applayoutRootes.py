@@ -28,7 +28,7 @@ def getRoutes():
          },
          {
              "id":"applayout_route_id_transactions",
-             "url":url_for("members.index"),
+             "url":url_for("transactions.index"),
              "title":_("Transactions"),
              "icon":"icon-transactions"
          },
@@ -40,7 +40,7 @@ def getRoutes():
          },
          {
            "id": "applayout_route_id_auditrail",
-            "url": url_for("members.index"),
+            "url": url_for("audittrail.index"),
             "title": _("Audit Trail"),
             "icon":"icon-list"
          }

@@ -49,7 +49,6 @@ class ControllerSaccoMember():
         phone = request.form["phone"]
         email = request.form["email"]
         role = request.form["role"]
-        balance = request.form["balance"]
         next_of_kin_name = request.form["next_of_kin_name"]
         date_of_birth = request.form["date_of_birth"]
         password = request.form["password"]
@@ -88,7 +87,6 @@ class ControllerSaccoMember():
             phone, 
             email, 
             role, 
-            balance, 
             next_of_kin_name, 
             date_of_birth,
             password
@@ -99,7 +97,7 @@ class ControllerSaccoMember():
     def getSaccoMembers(self):
         sacco_id = request.args.get("sacco_id")
         saccomemberRepo = SaccoMemberRepo(current_app)
-        saccomembers = saccomemberRepo.getSaccoMembers(sacco_id)
+        saccomembers = saccomemberRepo.getSaccoMembers(sacco_id) 
 
         return {
             "total": len(saccomembers),
@@ -142,7 +140,6 @@ class ControllerSaccoMember():
         phone = request.form.get("phone")
         email = request.form.get("email")
         role = request.form.get("role")
-        balance = request.form.get("balance")
         next_of_kin_name = request.form.get("next_of_kin_name")
         date_of_birth = request.form.get("date_of_birth")
         
@@ -183,7 +180,7 @@ class ControllerSaccoMember():
         action = "Updated sacco member "+saccomemberBeforeUpdate['email']+" to "+email
 
             
-        return saccomemberRepo.updateSaccoMember(id, sacco_id, account_number, fname, lname, gender, phone, email, role, balance, next_of_kin_name, date_of_birth, session['user'], action, oldData)
+        return saccomemberRepo.updateSaccoMember(id, sacco_id, account_number, fname, lname, gender, phone, email, role, next_of_kin_name, date_of_birth, session['user'], action, oldData)
 
 
 

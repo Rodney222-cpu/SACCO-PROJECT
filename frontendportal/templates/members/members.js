@@ -1,13 +1,14 @@
 
 
 $("#members_html_table").datagrid({
-    //url: '{{ url_for("saccomember.getSaccoMember") }}',
+    url: '{{ url_for("members.getMember") }}?sacco_id={{ session["sacco"]["id"] }} ',
     toolbar: '#members_html_table_toolbar',
     fit:true,
     pagination: true,
     rownumbers: true,
     columns: [[
         {field:'id', title:'ID',width:'5%'},
+        {field:'sacco_id', title:'{{ _('Sacco ID') }}',width:'10%'},
         {field:'fname', title:'{{ _('First Name') }}',width:'20%'},
         {field:'lname', title:'{{ _('Last Name') }}',width:'20%'},
         {field:'phone', title:'{{ _('Phone') }}',width:'20%'},
@@ -19,7 +20,9 @@ $("#members_html_table").datagrid({
         {field:'options', title:'{{ _('Options') }}', width:'15%',
             formatter: function(value,row,index) {
                 console.log(row);
-                return '<a href="#" class="label-anchor" onclick="global_functions.membersLaunchUpdateDialog(\''+index+'\');">Edit</a> ';
+                return '<a href="#" class="label-anchor" onclick="global_functions.membersLaunchUpdateDialog(\''+index+'\');">Edit</a> '
+                +'|'
+                +'<a href="#" class="label-anchor" onclick="global_functions.goToTransactions(\''+index+'\', \''+row.fname+'\');">Transactions Profile</a> '
             }
         }
     ]]
@@ -37,49 +40,52 @@ $("#members_html_table_toolbar_new_button").linkbutton({
     }
 });
 
-$("#sacco_member_html_table_toolbar_update_button").linkbutton({});
+$("#members_html_table_toolbar_delete_button").linkbutton({
+    onClick: function () {
+        global_functions.membersDeleteMember({});
+    }
+});
 
 
-    
-//global_functions.saccomemberAddNewSaccoMember = function(row)   {
-    
-    global_functions.sacco_member_reset_form();
-    
-    $('#sacco_member_html_form_container')
+global_functions.membersAddNewMember = function(row)   {
+
+    global_functions.members_reset_form();
+
+    $('#members_html_form_container')
     .dialog({
-        title: '{{ _("New SACCO MEMBER") }}',
+        title: '{{ _("NEW MEMBER") }}',
         width: 700,
         height: 400,
         onClose: function() {
-            //sacco_member_reset_form();
+            //members_reset_form();
         },
         modal: true,
         onOpen: function() {
-            var sacco_member_html_form_input_account_number = $('#sacco_member_html_form_input_account_number'),
-                sacco_member_html_form_input_fname = $('#sacco_member_html_form_input_fname'),
-                sacco_member_html_form_input_lname = $('#sacco_member_html_form_input_lname'),
-                sacco_member_html_form_input_gender = $('#sacco_member_html_form_input_gender'),
-                sacco_member_html_form_input_phone = $('#sacco_member_html_form_input_phone'),
-                sacco_member_html_form_input_email= $('#sacco_member_html_form_input_email'),
-                sacco_member_html_form_input_role = $('#sacco_member_html_form_input_role'),
-                sacco_member_html_form_input_balance = $('#sacco_member_html_form_input_balance'),
-                sacco_member_html_form_input_next_of_kin_name = $('#sacco_member_html_form_input_next_of_kin_name'),
-                sacco_member_html_form_input_date_of_birth = $('#sacco_member_html_form_input_date_of_birth');
+            var members_html_form_input_account_number = $('#members_html_form_input_account_number'),
+                members_html_form_input_fname = $('#members_html_form_input_fname'),
+                members_html_form_input_lname = $('#members_html_form_input_lname'),
+                members_html_form_input_gender = $('#members_html_form_input_gender'),
+                members_html_form_input_phone = $('#members_html_form_input_phone'),
+                members_html_form_input_email= $('#members_html_form_input_email'),
+                members_html_form_input_role = $('#members_html_form_input_role'),
+                members_html_form_input_next_of_kin_name = $('#members_html_form_input_next_of_kin_name'),
+                members_html_form_input_date_of_birth = $('#members_html_form_input_date_of_birth');
+                members_html_form_input_password = $('#members_html_form_input_password');
 
-            sacco_member_html_form_input_account_number.textbox({
+            members_html_form_input_account_number.textbox({
                 validType: 'number',
                 labelWidth: 200
             });
-            sacco_member_html_form_input_fname.textbox({
+            members_html_form_input_fname.textbox({
                 validType: 'text',
                 labelWidth: 125
             });
-            sacco_member_html_form_input_lname.textbox({
+            members_html_form_input_lname.textbox({
                 validType: 'text',
                 labelWidth: 125
-                
+
             });
-            sacco_member_html_form_input_gender.combobox({
+            members_html_form_input_gender.combobox({
                 valueField:"label",
                 textField: "value",
                 data:[
@@ -88,15 +94,15 @@ $("#sacco_member_html_table_toolbar_update_button").linkbutton({});
                 ],
                 labelWidth: 125
             });
-            sacco_member_html_form_input_phone.textbox({
-                validType: 'mobile',
+            members_html_form_input_phone.textbox({
+                validType: ["mobile", 'regex["^[0-9]{10,12}$", "Phone number must be exactly 12 digits."]'],
                 labelWidth: 125
             });
-            sacco_member_html_form_input_email.textbox({
+            members_html_form_input_email.textbox({
                 validType: 'email',
                 labelWidth: 125
             });
-            sacco_member_html_form_input_role.combobox({
+            members_html_form_input_role.combobox({
                 valueField:"label",
                 textField: "value",
                 data:[
@@ -108,104 +114,101 @@ $("#sacco_member_html_table_toolbar_update_button").linkbutton({});
                 labelWidth: 125,
                 value:"REGULAR MEMBER"
             });
-            sacco_member_html_form_input_balance.textbox({
+            members_html_form_input_next_of_kin_name.textbox({
                 validType: 'text',
                 labelWidth: 125
             });
-            sacco_member_html_form_input_next_of_kin_name.textbox({
-                validType: 'text',
-                labelWidth: 125
-            });
-            sacco_member_html_form_input_date_of_birth.datebox({
+            members_html_form_input_date_of_birth.datebox({
                 validType: 'date',
                 labelWidth: 125
             });
+            members_html_form_input_password.passwordbox({
+                required: false,
+                labelWidth: 150,
+                prompt: 'Password',
+                showEye: true
+            })
 
             if (typeof row.id != 'undefined') {
                 console.log(row);
-                sacco_member_html_form_input_account_number.textbox('setValue',row.account_number);
-                sacco_member_html_form_input_account_number.textbox('setText',row.account_number);
+                members_html_form_input_account_number.textbox('setValue',row.account_number);
+                members_html_form_input_account_number.textbox('setText',row.account_number);
 
-                sacco_member_html_form_input_fname.textbox('setValue',row.fname);
-                sacco_member_html_form_input_fname.textbox('setText',row.fname);
+                members_html_form_input_fname.textbox('setValue',row.fname);
+                members_html_form_input_fname.textbox('setText',row.fname);
 
-                sacco_member_html_form_input_lname.textbox('setValue',row.lname);
-                sacco_member_html_form_input_lname.textbox('setText',row.lname);
+                members_html_form_input_lname.textbox('setValue',row.lname);
+                members_html_form_input_lname.textbox('setText',row.lname);
 
-                sacco_member_html_form_input_gender.combobox('setValue',row.gender);
-                sacco_member_html_form_input_gender.combobox('setText',row.gender);
+                members_html_form_input_gender.combobox('setValue',row.gender);
+                members_html_form_input_gender.combobox('setText',row.gender);
 
-                sacco_member_html_form_input_phone.textbox('setValue',row.phone);
-                sacco_member_html_form_input_phone.textbox('setText',row.phone);
+                members_html_form_input_phone.textbox('setValue',row.phone);
+                members_html_form_input_phone.textbox('setText',row.phone);
 
-                sacco_member_html_form_input_email.textbox('setValue',row.email);
-                sacco_member_html_form_input_email.textbox('setText',row.email);
+                members_html_form_input_email.textbox('setValue',row.email);
+                members_html_form_input_email.textbox('setText',row.email);
 
-                sacco_member_html_form_input_role.combobox('setValue',row.role);
-                sacco_member_html_form_input_role.combobox('setText',row.role);
+                members_html_form_input_role.combobox('setValue',row.role);
+                members_html_form_input_role.combobox('setText',row.role);
 
-                sacco_member_html_form_input_balance.textbox('setValue', row.balance);
-                sacco_member_html_form_input_balance.textbox('setText', row.balance);
+                members_html_form_input_next_of_kin_name.textbox('setValue', row.next_of_kin_name);
+                members_html_form_input_next_of_kin_name.textbox('setText', row.next_of_kin_name);
 
-                sacco_member_html_form_input_next_of_kin_name.textbox('setValue', row.next_of_kin_name);
-                sacco_member_html_form_input_next_of_kin_name.textbox('setText', row.next_of_kin_name);
-
-                sacco_member_html_form_input_date_of_birth.datebox('setValue', row.date_of_birth);
-                sacco_member_html_form_input_date_of_birth.datebox('setText', row.date_of_birth);
+                members_html_form_input_date_of_birth.datebox('setValue', row.date_of_birth);
+                members_html_form_input_date_of_birth.datebox('setText', row.date_of_birth);
 
             } else {
-                //global_functions.sacco_member_remove_role();
-                //global_functions.sacco_member_add_role();   
+                //global_functions.members_remove_role();
+                //global_functions.members_add_role();
             }
 
-   
+
         },
         buttons: [
             {
                 text:'{{ _("Save") }}',
                 handler:function(){
                     if (typeof row.id != 'undefined') {
-                        global_functions.sacco_member_form_submit(row.id);   
+                        global_functions.members_form_submit(row.id);
                     } else {
-                        global_functions.sacco_member_form_submit(0);
+                        global_functions.members_form_submit(0);
                     }
                 }
             },
             {
                 text:'Close',
                 handler:function(){
-                    $('#sacco_member_html_form_container').dialog('close');
-                    global_functions.sacco_member_reset_form();
+                    $('#members_html_form_container').dialog('close');
+                    global_functions.members_reset_form();
                 }
             }
         ]
     });
 
-    //$('#sacco_member_html_form_id').form('clear');
-}
+    //$('#members_html_form_id').form('clear');
+};
 
-global_functions.sacco_member_remove_role = function()
+global_functions.members_remove_role = function()
 {
-    $('#sacco_member_html_form_input_role_table tr').remove(); 
+    $('#members_html_form_input_role_table tr').remove();
 }
 
-
-global_functions.sacco_member_reset_form = function() {
-    //$('#sacco_member_html_form_input_role:last-child').remove(); 
-    $("#sacco_member_html_form_id").form('reset')
+global_functions.members_reset_form = function() {
+    //$('#members_html_form_input_role:last-child').remove();
+    $("#members_html_form_id").form('reset')
 }
 
-
-global_functions.sacco_member_form_submit = function(id)
+global_functions.members_form_submit = function(id)
 {
 
-    if (!$("#sacco_member_html_form_id").form('validate')) {
+    if (!$("#members_html_form_id").form('validate')) {
         return;
     }
-    $('#sacco_member_html_form_container').dialog('close');
+    $('#members_html_form_container').dialog('close');
     showProgress('{{ _('%(progression)s', progression=messages['progression']) }}', '{{ _('%(please_wait)s', please_wait=messages['please_wait']) }}');
-    $("#sacco_member_html_form_id").form('submit', {
-        url: id == 0 ? '{{ url_for("saccomember.addSaccoMember") }}' : '{{ url_for("saccomember.updateSaccoMember")}}',
+    $("#members_html_form_id").form('submit', {
+        url: id == 0 ? '{{ url_for("members.addMember") }}' : '{{ url_for("members.updateMember")}}',
         method: 'post',
         onSubmit: function(param){
             param.id = id;
@@ -218,11 +221,11 @@ global_functions.sacco_member_form_submit = function(id)
                     title: res.status,
                     msg: res.message,
                     fn: function(){
-                        $('#sacco_member_html_form_container').dialog("open");
+                        $('#members_html_form_container').dialog("open");
                     }
                 });
             } else {
-                $('#sacco_member_html_form_container').dialog("close");
+                $('#members_html_form_container').dialog("close");
                 $.messager.show({
                     title: res.status,
                     msg:res.message,
@@ -230,25 +233,66 @@ global_functions.sacco_member_form_submit = function(id)
                     showType:'slide'
                 });
             }
-            $("#sacco_member_html_table").datagrid("reload");
+            $("#members_html_table").datagrid("reload");
         }
     });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+global_functions.membersDeleteMember = function() {
+
+    var rows = $("#members_html_table").datagrid('getSelections');
+    if (rows.length < 1) {
+        $.messager.alert('{{ _("Error") }}', '{{ _("Please select a SACCO MEMBER to delete.") }}', 'error');
+        return;
+    }
+
+    $.messager.confirm(
+        '{{ _("Confirm") }}', '{{ _("Are you sure you want to delete this SACCO MEMBER?") }}',
+        function(r){
+            if (r){
+                $.ajax({
+                    url: '{{ url_for("members.deleteMembers") }}',
+                    type: 'POST',
+                    data: JSON.stringify(rows),
+                    dataType: 'json',
+                    headers: {"Content-Type": "application/json"},
+                    success: function(data) {
+                        if (data.status === "OK") {
+                            $.messager.show({
+                                title: '{{ _("Success") }}',
+                                msg: data.message,
+                                timeout: 3000,
+                                showType: 'slide'
+                            });
+                            $("#members_html_table").datagrid('reload'); // Refresh the data grid
+                        } else {
+                            $.messager.alert('{{ _("Error") }}', data.message, 'error');
+                        }
+                    },
+                    error: function() {
+                        $.messager.alert('{{ _("Error") }}', '{{ _("An error occurred while trying to delete the SACCO MEMBER.") }}', 'error');
+                    }
+                });
+            }
+    });
+
+
+}
+
+global_functions.goToTransactions = function(index, fname) {
+    var dataRows = $("#members_html_table").datagrid("getData");
+    var saccomember = dataRows.rows[index];
+    var encodedfirstName = encodeURIComponent(fname);
+    var url = '{{ url_for("transactions.index") }}?member_id=' +saccomember.id + '&fname=' + encodedfirstName;
     
-    //Function to get a URL parameter value by its name
-    function getUrlParameter(name) {
-        const urlParams  = new URLSearchParams(window.location.search);
-        return urlParams.get(name);
-    }
+    applayoutLoadRouteContent(url, 'applayout_route_id_transactions');
+}
 
-    //retrieve the SACCO name from the URL
-    const saccoName = getUrlParameter('sacco_name');
 
-    if (saccoName) {
-        const saccoNameElement = document.getElementById('sacco_member_html_table_sacco_name');
-        saccoNameElement.textContent = 'SACCO: ' + decodeURIComponent(saccoName);
-    }
-});
+
+
+
+
+
+
 

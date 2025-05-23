@@ -1,7 +1,7 @@
 
 
 $("#sacco_member_html_table").datagrid({
-    url: '{{ url_for("saccomember.getSaccoMember") }}',
+    url: '{{ url_for("saccomember.getSaccoMember") }}?sacco_id={{sacco["id"]}}',
     toolbar: '#sacco_member_html_table_toolbar',
     fit:true,
     pagination: true,
@@ -117,7 +117,6 @@ global_functions.saccomemberAddNewSaccoMember = function(row)   {
                 sacco_member_html_form_input_phone = $('#sacco_member_html_form_input_phone'),
                 sacco_member_html_form_input_email= $('#sacco_member_html_form_input_email'),
                 sacco_member_html_form_input_role = $('#sacco_member_html_form_input_role'),
-                sacco_member_html_form_input_balance = $('#sacco_member_html_form_input_balance'),
                 sacco_member_html_form_input_next_of_kin_name = $('#sacco_member_html_form_input_next_of_kin_name'),
                 sacco_member_html_form_input_date_of_birth = $('#sacco_member_html_form_input_date_of_birth');
                 sacco_member_html_form_input_password = $('#sacco_member_html_form_input_password');
@@ -145,7 +144,7 @@ global_functions.saccomemberAddNewSaccoMember = function(row)   {
                 labelWidth: 125
             });
             sacco_member_html_form_input_phone.textbox({
-                validType: 'mobile',
+                validType: ["mobile", 'regex["^[0-9]{10,12}$", "Phone number must be exactly 12 digits."]'],
                 labelWidth: 125
             });
             sacco_member_html_form_input_email.textbox({
@@ -163,10 +162,6 @@ global_functions.saccomemberAddNewSaccoMember = function(row)   {
                 ],
                 labelWidth: 125,
                 value:"REGULAR MEMBER"
-            });
-            sacco_member_html_form_input_balance.textbox({
-                validType: 'text',
-                labelWidth: 125
             });
             sacco_member_html_form_input_next_of_kin_name.textbox({
                 validType: 'text',
@@ -205,9 +200,6 @@ global_functions.saccomemberAddNewSaccoMember = function(row)   {
 
                 sacco_member_html_form_input_role.combobox('setValue',row.role);
                 sacco_member_html_form_input_role.combobox('setText',row.role);
-
-                sacco_member_html_form_input_balance.textbox('setValue', row.balance);
-                sacco_member_html_form_input_balance.textbox('setText', row.balance);
 
                 sacco_member_html_form_input_next_of_kin_name.textbox('setValue', row.next_of_kin_name);
                 sacco_member_html_form_input_next_of_kin_name.textbox('setText', row.next_of_kin_name);

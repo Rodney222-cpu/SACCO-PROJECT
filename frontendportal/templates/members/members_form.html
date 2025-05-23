@@ -1,12 +1,12 @@
-<div id="sacco_member_html_form_container" style="display:none;">
-    <form id="sacco_member_html_form_id" 
+<div id="members_html_form_container" style="display:none;">
+    <form id="members_html_form_id" 
         method="post" 
         style="margin:0;padding:20px 50px">
-        <h3>{{ _('SACCO MEMBER Entry') }}</h3>
+        <h3>{{ _(' MEMBER Entry') }}</h3>
         <div style="margin-bottom:10px">
             <input 
                 name="account_number" 
-                id="sacco_member_html_form_input_account_number"
+                id="members_html_form_input_account_number"
                 class="easyui-textbox" 
                 required="true" 
                 label="{{ _('Account Number') }}" style="width:100%">
@@ -16,7 +16,7 @@
             <input 
                 name="fname" 
                 type="text"
-                id="sacco_member_html_form_input_fname"
+                id="members_html_form_input_fname"
                 class="easyui-textbox" 
                 required="true" 
                 label="{{ _('First Name') }}" style="width:100%">
@@ -25,7 +25,7 @@
         <div style="margin-bottom:10px">
             <input 
                 name="lname" 
-                id="sacco_member_html_form_input_lname"
+                id="members_html_form_input_lname"
                 class="easyui-textbox" 
                 type="text"
                 required="true" 
@@ -35,7 +35,7 @@
         <div style="margin-bottom:10px">
             <input 
                 name="gender" 
-                id="sacco_member_html_form_input_gender"
+                id="members_html_form_input_gender"
                 class="easyui-combobox" 
                 required="true" 
                 label="{{ _('Gender') }}" style="width:100%">
@@ -44,10 +44,10 @@
         <div style="margin-bottom:10px">
             <input 
                 name="phone" 
-                id="sacco_member_html_form_input_phone"
+                id="members_html_form_input_phone"
                 class="easyui-textbox"
-                type="tel"
-                pattern="[0-9]{10,12}" 
+                type="tel" 
+                pattern="[0-9]{10,12}"
                 required="true" 
                 label="{{ _('Phone') }}" style="width:100%">
         </div>
@@ -55,7 +55,7 @@
         <div style="margin-bottom:10px">
             <input 
                 name="email" 
-                id="sacco_member_html_form_input_email"
+                id="members_html_form_input_email"
                 class="easyui-textbox" 
                 type="email"
                 required="true" 
@@ -65,7 +65,7 @@
         <div style="margin-bottom:10px">
             <input
                 name="role"
-                id="sacco_member_html_form_input_role"
+                id="members_html_form_input_role"
                 class="easyui-combobox"
                 type="text"
                 required="true"
@@ -75,7 +75,7 @@
         <div style="margin-bottom:10px">
             <input 
                 name="next_of_kin_name" 
-                id="sacco_member_html_form_input_next_of_kin_name"
+                id="members_html_form_input_next_of_kin_name"
                 class="easyui-textbox" 
                 type="text"
                 required="true" 
@@ -85,7 +85,7 @@
         <div style="margin-bottom:10px">
             <input 
                 name="date_of_birth" 
-                id="sacco_member_html_form_input_date_of_birth"
+                id="members_html_form_input_date_of_birth"
                 class="easyui-datebox"
                 type="text" 
                 required="true" 
@@ -95,7 +95,7 @@
         <div style="margin-bottom:10px">
             <input 
                 name="password" 
-                id="sacco_member_html_form_input_password"
+                id="members_html_form_input_password"
                 class="easyui-passwordbox" 
                 prompt="Enter your Password"
                 required="true" 
@@ -104,6 +104,6 @@
        
         
 
-        <input id="selected_sacco_id" type="hidden" name="sacco_id" value="{{sacco_id}}"/>
+        <input id="selected_sacco_id" type="hidden" name="sacco_id" value="{{session['sacco']['id']}}"/>
     </form>
 </div>

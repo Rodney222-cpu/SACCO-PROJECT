@@ -10,6 +10,23 @@
     "error_sacco_member_not_exist": "Sacco member does not exist.",
     "invalid_phone_or_email": "Invalid phone or email",
     "sacco_member_authenticated": "Sacco member authentication was successful",
-    "error_sacco_not_exist" : "Sacco does not exist"
-
+    "error_sacco_not_exist" : "Sacco does not exist",
+    "invalid_sacco_id_and_username" : "Invalid %s",
+    "error_sacco_member_already_exists":"Error! SACCO MEMBER %s already exists",
+    "sacco_member_created_successfully":"Success! Sacco Member created successfully",
+    "sacco_member_deleted":"SACCO MEMBER has been deleted successfully",
+    "sacco_member_updated_successfully":"Sacco Member has been updated successfully",
+    "resource_does_not_exist":"%s does not exist",
+    "transaction_created_successfully":"Success! Transaction created successfully",
+    "session_timedout":"Your session timed out. Please login again",
+    "member_not_found":"Member not found",
+    "phone_not_found":"Phone not found",
+    "balance_updated_successfully":"Balance updated successfully",
+    "insufficient_balance":"Insufficient balance",
+    "failed_to_retrive_transaction":"Failed to retrive transaction",
+    "transaction_failed":"Transaction failed",
+    "transaction_not_found":"Transaction not found",
+    "transaction_deleted":"Transaction deleted successfully",
+    "transaction_updated":"Transaction updated successfully",
+    "transaction_reference_exists":"Transaction with this reference already exists"
 }

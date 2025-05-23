@@ -14,11 +14,21 @@
             </span>
 
             <div class="applayout-header-user-panel" align="right">
-                <strong>Group Name:</strong> <span class="applayout-header-user-name">{{ "Group Name" }}</span>
+                <strong>Group Name:</strong> 
+                    <span class="applayout-header-user-name">
+                    {% if 'sacco' in session %} 
+                        {{ session['sacco']['name'] }} 
+                    {% endif %}
+                    </span>
                 |
-                <strong>Group ID:</strong> <span class="applayout-header-user-name">{{ "Group ID" }}</span>
+                    <strong>Group ID:</strong> 
+                    <span class="applayout-header-user-name"> 
+                        {% if 'sacco' in session %} 
+                            {{ session['sacco']['group_id'] }} 
+                        {% endif %}
+                    </span>
                 |
-                <strong>User:</strong> <span class="applayout-header-user-name">{{ session['user']['name'] }}</span><br/>
+                <strong>User:</strong> <span class="applayout-header-user-name">{{ session['saccomember']['lname'] }}</span><br/>
                 <span>
                     <a href="#" 
                         class="easyui-linkbutton linkbutton-custom-style" 

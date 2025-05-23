@@ -57,7 +57,7 @@ class SaccoMemberRepo():
           
     
     
-    def addSaccoMember(self, sacco_id, account_number, fname, lname, gender, phone, email, role, balance, next_of_kin_name, date_of_birth, password):
+    def addSaccoMember(self, sacco_id, account_number, fname, lname, gender, phone, email, role, next_of_kin_name, date_of_birth, password):
         try:
             cursor = self.db.connection.cursor(MySQLdb.cursors.DictCursor)
         except Exception:
@@ -65,7 +65,7 @@ class SaccoMemberRepo():
         
         cursor.execute(
             '''SELECT * FROM `sacco_member` WHERE email= %(email)s  ''', 
-            {'email':email,}
+            {'email':email}
         )
         saccomember = cursor.fetchone()
 
@@ -87,7 +87,6 @@ class SaccoMemberRepo():
                    'phone': phone,
                    'email': email,
                    'role': role,
-                   'balance': balance,
                    'next_of_kin_name': next_of_kin_name,
                    'date_of_birth': date_of_birth,
                    'password': hashed_password
@@ -97,29 +96,23 @@ class SaccoMemberRepo():
         self.db.connection.commit()
         return {'status':"OK", "message":self.messages['sacco_member_created_successfully']}
 
-    
-    def getSaccoMembers(self, sacco_id):
+    '''
+    @Param Int id       This is the primary id of the sacco "sacco.id"
+    returns List of sacco member dictionary 
+    '''
+    def getSaccoMembers(self, id):
         try:
             cursor = self.db.connection.cursor(MySQLdb.cursors.DictCursor)
-        except Exception:
+        except Exception: 
             return {'status':"ERROR", "message":f"Exception: {Exception}"}
         
         cursor.execute(
-            '''SELECT * FROM sacco_member''',
-            {}
+            '''SELECT * FROM `sacco_member` WHERE sacco_id = %(sacco_id)s''',
+            {"sacco_id":id}
             
         )
-        allSaccoMember = cursor.fetchall()
+        return cursor.fetchall()  
         
-        i=0
-        for saccoMember in allSaccoMember:
-            cursor.execute(
-               '''SELECT * FROM `sacco_member` WHERE sacco_id = %(sacco_id)s ''', 
-            {"sacco_id":sacco_id}  
-            )
-            i +=1
-        return allSaccoMember    
-    
     def deleteSaccoMembers(self, rows, user, action, oldData):
         try:
             cursor = self.db.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -191,7 +184,7 @@ class SaccoMemberRepo():
         return saccomember     
 
 
-    def updateSaccoMember(self, id, sacco_id, account_number, fname, lname, gender, phone, email, role, balance, next_of_kin_name, date_of_birth, user, action, oldData):
+    def updateSaccoMember(self, id, sacco_id, account_number, fname, lname, gender, phone, email, role, next_of_kin_name, date_of_birth, user, action, oldData):
         
         try:
             cursor = self.db.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -211,7 +204,6 @@ class SaccoMemberRepo():
                       'phone':phone, 
                       'email':email, 
                       'role':role,
-                      'balance':balance,
                       'next_of_kin_name':next_of_kin_name,
                       'date_of_birth':date_of_birth,
                       
