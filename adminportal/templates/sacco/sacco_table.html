@@ -1,0 +1,40 @@
+<table 
+    id="sacco_html_table"
+    class="easyui-datagrid" 
+    title="" 
+    style="width:700px;height:250px"
+    data-options="rownumbers:true,fit:true,singleSelect:true,url:'datagrid_data1.json',method:'get'">
+    <thead>
+        <tr>
+            <th data-options="field:'itemid',width:'10%'">ID</th>
+            <th data-options="field:'group_id',width:'10%'">Group ID</th>
+            <th data-options="field:'name',width:'15%'">Name</th>
+            <th data-options="field:'location',width:'10%'">{{_('Location')}}</th>
+            <th data-options="field:'created_on',width:'20%',align:'right'">{{ _('Created On') }}</th>
+            <th data-options="field:'updated_on',width:'20%',align:'right'">{{ _('Updated On') }}</th>
+            <th data-options="field:'action',width:'20%',align:'right'">Options</th>
+        </tr>
+    </thead>
+</table>
+
+<div id="sacco_html_table_toolbar">
+    <a href="javascript:void(0)" 
+        id="sacco_html_table_toolbar_new_button"
+        class="easyui-linkbutton" 
+        iconCls="icon-add" 
+        plain="false">{{ _('New SACCO') }}</a>
+    <a href="javascript:void(0)" 
+        class="easyui-linkbutton" 
+        id="sacco_html_table_toolbar_update_button"
+        iconCls="icon-edit" 
+        plain="false" 
+        onclick="saccoAddNewSACCO()">{{ _('Update SACCO') }}</a>
+    <a href="javascript:void(0)" 
+        class="easyui-linkbutton" 
+        id="sacco_html_table_toolbar_delete_button"
+        iconCls="icon-remove" 
+        plain="false" 
+        onclick="saccoDeleteSacco()">{{ _('Delete SACCO') }}</a>
+</div>
+
+{%  include 'sacco/sacco_form.html' %}

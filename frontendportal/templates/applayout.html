@@ -1,0 +1,66 @@
+{% extends 'base_html.html' %}
+
+{% block body %}
+<body>
+        
+    <div class="easyui-layout" data-options="fit:true" style="width:700px;height:350px;">
+        <div data-options="region:'north'" class="applyout-header-panel">
+            
+            <img class="applayout-header-logo"
+                src="{{ url_for('static', filename='images/yo_logo.png') }}" />
+            
+            <span class="applayout-header-appname">
+                {{ _(messages.app_name) }}
+            </span>
+
+            <div class="applayout-header-user-panel" align="right">
+                <strong>Group Name:</strong> 
+                    <span class="applayout-header-user-name">
+                    {% if 'sacco' in session %} 
+                        {{ session['sacco']['name'] }} 
+                    {% endif %}
+                    </span>
+                |
+                    <strong>Group ID:</strong> 
+                    <span class="applayout-header-user-name"> 
+                        {% if 'sacco' in session %} 
+                            {{ session['sacco']['group_id'] }} 
+                        {% endif %}
+                    </span>
+                |
+                <strong>User:</strong> <span class="applayout-header-user-name">{{ session['saccomember']['lname'] }}</span><br/>
+                <span>
+                    <a href="#" 
+                        class="easyui-linkbutton linkbutton-custom-style" 
+                        data-options="plain:true,iconCls:'icon-exit',onClick:function(){applayoutLogOut();}" >{{ _(messages.log_out) }}</a>
+                </span>
+            </div>
+        </div>
+        <div data-options="region:'center'" class="applyout-center-panel">
+            <div class="easyui-tabs applyout-center-panel-tabs" data-options="fit:true,tabPosition:'left'">
+                {% for route in routes %}
+                    <div 
+                        id="{{ route['id'] }}"
+                        title="{{ route['title'] }}" 
+                        data-options="iconCls:'{{ route['icon'] }}',closable:false">
+                    
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div data-options="region:'south'" align="center" class="applyout-footer-panel">
+            <span class="applayout-footer-copyright">{{ _('%(copyright)s', copyright=messages['copyright']) }}</span>
+        </div>
+    </div>
+    <!-- End of page layout -->
+
+</body>
+    <script>
+    {%  include 'js/applayout.js' %}
+    </script>
+{% endblock %}
+
+
+{% block footer %}
+  
+{% endblock %}

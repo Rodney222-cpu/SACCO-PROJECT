@@ -1,0 +1,31 @@
+<div id="sacco_html_form_container" style="display:none;">
+    <form id="sacco_html_form_id" 
+        method="post" 
+        style="margin:0;padding:20px 50px">
+        <h3>{{ _('SACCO Entry') }}</h3>
+        <div style="margin-bottom:10px">
+            <input 
+                name="group_id" 
+                id="sacco_html_form_input_group_id"
+                class="easyui-textbox" 
+                required="true" 
+                label="{{ _('SACCO Group ID') }}" style="width:100%">
+        </div>
+        <div style="margin-bottom:10px">
+            <input 
+                name="name" 
+                id="sacco_html_form_input_name"
+                class="easyui-textbox" 
+                required="true" 
+                label="{{ _('SACCO Name') }}" style="width:100%">
+        </div>
+        <div style="margin-bottom:10px">
+            <input 
+                name="location" 
+                id="sacco_html_form_input_location"
+                class="easyui-textbox" 
+                required="true" 
+                label="{{ _('SACCO location') }}" style="width:100%">
+        </div>
+    </form>
+</div>

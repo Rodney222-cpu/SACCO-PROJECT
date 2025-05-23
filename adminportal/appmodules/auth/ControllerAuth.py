@@ -3,7 +3,9 @@ from flask import (session,request,redirect, render_template)
 from flask import current_app
 import hashlib
 from ...repositories.MessagesRepo import getMessages
-from ...repositories.UserRepo import UserRepo
+from ...repositories.UserRepo import UserRepo 
+from ...repositories.AuditTrailRepo import AuditTrailRepo
+import sys
 
 class ControllerAuth():
     app=None
@@ -51,7 +53,9 @@ class ControllerAuth():
         
         
         userRepo = UserRepo(current_app)
+        auditTrail = AuditTrailRepo(current_app)
         user = userRepo.getUserByUsername(username)
+        print(user, file=sys.stderr)
         if not user:
             return {'status':"ERROR", "message":_('%(msg)s', msg=self.messages['error_user_not_exist'])}
         else:
@@ -59,7 +63,14 @@ class ControllerAuth():
             hashed_pw = hashlib.sha256(password.encode()).hexdigest()
             if user['password'] == hashed_pw:
                 session['username'] = username
-                session['user'] = userRepo.getUserByUsername(username)
+                session['user'] = user
+                userAgent = request.user_agent.string
+                userIp = request.remote_addr
+                action = "Logged in from "+userIp+", UserAgent: "+userAgent
+                atEntry = auditTrail.addAuditTrail(user['name'], user['email'], action, "")
+                if atEntry['status'] != "OK":
+                    return atEntry
+                
                 return {'status':"OK", "message":_('%(msg)s', msg=self.messages['user_authenticated'])}
            
             else:
@@ -67,5 +78,15 @@ class ControllerAuth():
             
 
     def logout(self):
+        auditTrail = AuditTrailRepo(current_app)
+        if 'user' not in session:
+            session.clear()
+            return {"status": "OK","message":_("Log Out was successful")}    
+
+        action = "Logged Out"
+        atEntry = auditTrail.addAuditTrail(session['user']['name'], session['user']['email'], action, "")
+        if atEntry['status'] != "OK":
+            return atEntry
+        
         session.clear()
         return {"status": "OK","message":_("Log Out was successful")}

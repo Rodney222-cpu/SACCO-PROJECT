@@ -1,0 +1,17 @@
+<table 
+    id="audit_trail_html_table"
+    class="easyui-datagrid" 
+    title="" 
+    style="width:700px;height:250px"
+    data-options="rownumbers:true,fit:true,singleSelect:true,url:'datagrid_data1.json',method:'get'">
+    <thead>
+        <tr>
+            <th data-options="field:'itemid',width:'10%'">ID</th>
+            <th data-options="field:'user_name',width:'10%'">Username</th>
+            <th data-options="field:'email',width:'15%'">{{_('Email') }}</th>
+            <th data-options="field:'action',width:'10%'">{{_('Action') }}</th>
+            <th data-options="field:'data',width:'10%'">{{_('Data') }}</th> 
+            <th data-options="field:'created_on',width:'40%',align:'right'">{{ _('Created On') }}</th>
+            <th data-options="field:'updated_on',width:'40%',align:'right'">{{ _('Updated On') }}</th>
+    </thead>
+</table>

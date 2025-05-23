@@ -1,0 +1,21 @@
+<table 
+    id="transactions_html_table"
+    class="easyui-datagrid" 
+    title="" 
+    style="width:700px;height:250px"
+    data-options="rownumbers:true,fit:true,singleSelect:true,url:'datagrid_data1.json',method:'get'">
+    <thead>
+        <tr>
+            <th data-options="field:'itemid',width:'10%'">ID</th>
+            <th data-options="field:'completion_date',width:'40%',align:'right'">{{ _('Completion Date') }}</th>
+            <th data-options="field:'itemid',width:'10%'">Member ID</th>
+            <th data-options="field:'amount',width:'15%'">{{_('Amount')}}</th>
+            <th data-options="field:'narrative',width:'10%'">{{_('Narrative') }}</th>
+            <th data-options="field:'status',width:'10%'">{{_('Status') }}</th>
+            <th data-options="field:'transaction_type',width:'10%'">{{_('Transaction Type') }}</th>
+            <th data-options="field:'payment_method',width:'15%'">{{_('Payment Method') }}</th>
+            <th data-options="field:'created_on',width:'40%',align:'right'">{{ _('Created On') }}</th>
+            <th data-options="field:'updated_on',width:'40%',align:'right'">{{ _('Updated On') }}</th> 
+        </tr>
+    </thead>
+</table>

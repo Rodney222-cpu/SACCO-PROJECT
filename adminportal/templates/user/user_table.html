@@ -1,0 +1,40 @@
+<table 
+    id="user_html_table"
+    class="easyui-datagrid" 
+    title="" 
+    style="width:700px;height:250px"
+    data-options="rownumbers:true,fit:true,singleSelect:true,url:'datagrid_data1.json',method:'get'">
+    <thead>
+        <tr>
+            <th data-options="field:'itemid',width:'10%'">ID</th>
+            <th data-options="field:'name',width:'15%'">Name</th>
+            <th data-options="field:'phone',width:'10%'">Phone</th>
+            <th data-options="field:'email',width:'15%'">{{_('Email') }}</th>
+            <th data-options="field:'created_on',width:'40%',align:'right'">{{ _('Created On') }}</th>
+            <th data-options="field:'updated_on',width:'40%',align:'right'">{{ _('Updated On') }}</th>
+            <th data-options="field:'action',width:'20%',align:'right'">Options</th>
+        </tr>
+    </thead>
+</table>
+
+<div id="user_html_table_toolbar">
+    <a href="javascript:void(0)" 
+        id="user_html_table_toolbar_new_button"
+        class="easyui-linkbutton" 
+        iconCls="icon-add" 
+        plain="false">{{ _('New USER') }}</a>
+    <a href="javascript:void(0)" 
+        class="easyui-linkbutton" 
+        id="user_html_table_toolbar_update_button"
+        iconCls="icon-edit" 
+        plain="false" 
+        onclick="userAddNewUSER()">{{ _('Update USER') }}</a>
+    <a href="javascript:void(0)" 
+        class="easyui-linkbutton" 
+        id="user_html_table_toolbar_delete_button"
+        iconCls="icon-remove" 
+        plain="false" 
+        onclick="userAddNewUSER()">{{ _('Delete USER') }}</a>
+</div>
+
+{%  include 'user/user_form.html' %}
